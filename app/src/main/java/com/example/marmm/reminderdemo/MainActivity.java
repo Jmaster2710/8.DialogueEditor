@@ -187,13 +187,9 @@ and uses callbacks to signal when a user is performing these actions.
     public void reminderOnClick(int i) {
 //        Toast.makeText(this, ""+i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
-
         mModifyPosition = i;
-
         intent.putExtra(EXTRA_REMINDER,  mReminders.get(i));
-
         startActivityForResult(intent, REQUESTCODE);
-
 
 
     }

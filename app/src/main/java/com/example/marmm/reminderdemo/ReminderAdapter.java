@@ -35,10 +35,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
         Context context = viewGroup.getContext();
         LayoutInflater inflater= LayoutInflater.from(context);
-        View view = inflater.inflate(android.R.layout.simple_list_item_1, null);
+        View view = inflater.inflate(R.layout.textbox_cell, null);
 
 // Return a new holder instance
-
         ReminderAdapter.ViewHolder viewHolder = new ReminderAdapter.ViewHolder(view);
         return viewHolder;
     }
@@ -47,6 +46,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public void onBindViewHolder(@NonNull ReminderAdapter.ViewHolder viewHolder, int i) {
 
         Reminder reminder =  mReminders.get(i);
+
+        //Sets text of the dialogue
         viewHolder.textView.setText(reminder.getReminderText());
     }
 
@@ -59,11 +60,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
         public TextView textView;
 
-
-
         public ViewHolder(View itemView) {
             super(itemView);
-            textView= itemView.findViewById(android.R.id.text1);
+            textView= itemView.findViewById(R.id.dialogueName);
             itemView.setOnClickListener(this);
 
         }
@@ -77,14 +76,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
 
     public void swapList (List<Reminder> newList) {
-
-
         mReminders = newList;
 
         if (newList != null) {
-
             // Force the RecyclerView to refresh
-
             this.notifyDataSetChanged();
 
         }
