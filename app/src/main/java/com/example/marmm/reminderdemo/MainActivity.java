@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
     private ReminderAdapter mAdapter;
     private RecyclerView mRecyclerView;
-
+    private Button mPlaytestButton;
 
     private List<Reminder> mReminders;
     private EditText mNewReminderText;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         db = AppDatabase.getInstance(this);
 
         mRecyclerView = findViewById(R.id.recyclerView);
-
+        mPlaytestButton = findViewById(R.id.playtest_button);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         //mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -70,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         mNewReminderText = findViewById(R.id.editText_main);
 
         mReminders = new ArrayList<>();
+
+        mPlaytestButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                startPlaytest();
+            }
+        });
+
+
 
         new ReminderAsyncTask(TASK_GET_ALL_REMINDERS).execute();
 //Set the long click listener for reminders in the list in order to remove a reminder
@@ -190,10 +199,21 @@ and uses callbacks to signal when a user is performing these actions.
         mModifyPosition = i;
         intent.putExtra(EXTRA_REMINDER,  mReminders.get(i));
         startActivityForResult(intent, REQUESTCODE);
-
-
     }
 
+
+    public void startPlaytest()
+    {
+        ArrayList<String> textList = new ArrayList<String>();
+
+        for (Reminder r: mReminders) {
+            textList.add(r.getReminderText());
+        }
+        Intent intent = new Intent(MainActivity.this, PlaytestActivity.class);
+        intent.putStringArrayListExtra("stringList", (ArrayList<String>) textList);
+        startActivity(intent);
+
+    }
 
     @Override
 
