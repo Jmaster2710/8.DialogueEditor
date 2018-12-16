@@ -86,29 +86,20 @@ and uses callbacks to signal when a user is performing these actions.
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
                     @Override
-
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
-
-                            target) {
-
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                         return false;
-
                     }
 
 
                     //Called when a user swipes left or right on a ViewHolder
 
                     @Override
-
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
-
                         //Get the index corresponding to the selected position
-
                         int position = (viewHolder.getAdapterPosition());
 
                         //mReminders.remove(position);
-
                         new ReminderAsyncTask(TASK_DELETE_REMINDER).execute(mReminders.get(position));
                     }
 
@@ -116,42 +107,35 @@ and uses callbacks to signal when a user is performing these actions.
 
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//Get the user text from the textfield
+                //Get the user text from the textfield
 
                 String text = mNewReminderText.getText().toString();
                 Reminder newReminder = new Reminder(text);
 
 
-//Check if some text has been added
+                //Check if some text has been added
 
-                if (!(TextUtils.isEmpty(text))) {
+                if (!(TextUtils.isEmpty(text)))
+                {
                     //Add the text to the list (datamodel)
-//                    mReminders.add(newReminder);
-
+                    //mReminders.add(newReminder);
 
                     new ReminderAsyncTask(TASK_INSERT_REMINDER).execute(newReminder);
-//Tell the adapter that the data set has been modified: the screen will be refreshed.
-
-
+                    //Tell the adapter that the data set has been modified: the screen will be refreshed.
 
                     //Initialize the EditText for the next item
 
                     mNewReminderText.setText("");
 
                 } else {
-
                     //Show a message to the user if the textfield is empty
-
                     Snackbar.make(view, "Please enter some text in the textfield", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                 }
@@ -230,12 +214,8 @@ and uses callbacks to signal when a user is performing these actions.
 
                 new ReminderAsyncTask(TASK_UPDATE_REMINDER).execute(updatedReminder);
 
-
-
             }
-
         }
-
     }
 
 
@@ -243,7 +223,6 @@ and uses callbacks to signal when a user is performing these actions.
     public void onReminderDbUpdated(List list) {
 
         mReminders = list;
-
         updateUI();
 
     }
@@ -255,9 +234,7 @@ and uses callbacks to signal when a user is performing these actions.
 
 
         public ReminderAsyncTask(int taskCode) {
-
             this.taskCode = taskCode;
-
         }
 
 
@@ -286,8 +263,6 @@ and uses callbacks to signal when a user is performing these actions.
                     break;
 
             }
-
-
             //To return a new list with the updated data, we get all the data from the database again.
 
             return db.reminderDao().getAllReminders();
@@ -300,9 +275,7 @@ and uses callbacks to signal when a user is performing these actions.
         protected void onPostExecute(List list) {
 
             super.onPostExecute(list);
-
             onReminderDbUpdated(list);
-
         }
 
     }
