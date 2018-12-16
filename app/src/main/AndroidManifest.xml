@@ -22,7 +22,8 @@
         <activity
             android:name=".UpdateActivity"
             android:label="@string/title_activity_update"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PlaytestActivity"></activity>
     </application>
 
 </manifest>

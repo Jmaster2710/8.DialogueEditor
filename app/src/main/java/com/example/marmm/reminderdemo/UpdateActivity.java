@@ -48,23 +48,17 @@ public class UpdateActivity extends AppCompatActivity {
 //(reminderUpdate.setmReminderText(updatedReminderText)));
 
                 if (!TextUtils.isEmpty(text)) {
-
                     reminderUpdate.setmReminderText(text);
 
                     //Prepare the return parameter and return
-
                     Intent resultIntent = new Intent();
-
                     resultIntent.putExtra(MainActivity.EXTRA_REMINDER, reminderUpdate);
-
                     setResult(Activity.RESULT_OK, resultIntent);
-
                     finish();
 
                 } else {
 
                     Snackbar.make(view, "Enter some data", Snackbar.LENGTH_LONG);
-
                 }
 
 
