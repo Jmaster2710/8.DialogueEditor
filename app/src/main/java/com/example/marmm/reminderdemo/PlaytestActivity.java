@@ -38,24 +38,26 @@ public class PlaytestActivity extends AppCompatActivity {
             timerHandler.postDelayed(this, mTextDelay);
 
             //As long as the sentenced is not finished
-            if (mDrawString != mStrings.get(mStringIndex)) {
+            if (mDrawString.length() < mStrings.get(mStringIndex).length()) {
                 mDrawString += mStrings.get(mStringIndex).charAt(mCharIndex);
+                mCharIndex ++;
             }
             mDialogue.setText(String.format("%d:%02d", minutes, seconds) + mDrawString);
-            mCharIndex ++;
+
         }
     };
 
     public void nextText()
     {
         //Has the dialogue finished showing all text
-        if (mDrawString == mStrings.get(mStringIndex))
+        if (mDrawString.length() == mStrings.get(mStringIndex).length())
         {
-            //Go to next one
-            if (mStringIndex < mStrings.size())
+            //Go to next one.
+            if (mStringIndex < mStrings.size() - 1)
             {
                 mStringIndex++;
                 mCharIndex = 0;
+                mDrawString = "";
             } else
             {
                 endTest();
