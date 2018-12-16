@@ -2,6 +2,7 @@ package com.example.marmm.reminderdemo;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView= itemView.findViewById(R.id.dialogueName);
+            textView = itemView.findViewById(R.id.dialogueText);
             itemView.setOnClickListener(this);
 
         }
