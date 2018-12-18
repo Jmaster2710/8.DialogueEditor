@@ -1,5 +1,6 @@
 package com.example.marmm.reminderdemo;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,11 +22,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ReminderAdapter.ReminderClickListener{
+import javax.annotation.Nullable;
+
+public class MainActivity extends AppCompatActivity implements ReminderAdapter.ReminderClickListener {
 
 
     //Local variables
-
 
 
 //Constants used when calling the update activity
@@ -42,16 +44,15 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
     private RecyclerView mRecyclerView;
     private Button mPlaytestButton;
 
+    private MainViewModel mMainViewModel;
+
     private List<Reminder> mReminders;
     private EditText mNewReminderText;
 
-    public final static int TASK_GET_ALL_REMINDERS = 0;
-
-    public final static int TASK_DELETE_REMINDER = 1;
-
-    public final static int TASK_UPDATE_REMINDER = 2;
-
-    public final static int TASK_INSERT_REMINDER = 3;
+    //public final static int TASK_GET_ALL_REMINDERS = 0;
+    //public final static int TASK_DELETE_REMINDER = 1;
+    //public final static int TASK_UPDATE_REMINDER = 2;
+    // public final static int TASK_INSERT_REMINDER = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,27 +61,38 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = AppDatabase.getInstance(this);
+        //b = AppDatabase.getInstance(this);
+        //new ReminderAsyncTask(TASK_GET_ALL_REMINDERS).execute();
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mPlaytestButton = findViewById(R.id.playtest_button);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        mMainViewModel = new MainViewModel(getApplicationContext());
+
+        mMainViewModel.getReminders().observe(this, new Observer<List<Reminder>>() {
+
+            @Override
+
+            public void onChanged(@Nullable List<Reminder> reminders) {
+                mReminders = reminders;
+                updateUI();
+            }
+
+        });
+
+
         //mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         mNewReminderText = findViewById(R.id.editText_main);
-
         mReminders = new ArrayList<>();
-
-        mPlaytestButton.setOnClickListener(new View.OnClickListener(){
+        mPlaytestButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startPlaytest();
             }
         });
 
 
-
-        new ReminderAsyncTask(TASK_GET_ALL_REMINDERS).execute();
 //Set the long click listener for reminders in the list in order to remove a reminder
 
 
@@ -109,7 +121,7 @@ and uses callbacks to signal when a user is performing these actions.
                         int position = (viewHolder.getAdapterPosition());
 
                         //mReminders.remove(position);
-                        new ReminderAsyncTask(TASK_DELETE_REMINDER).execute(mReminders.get(position));
+                        mMainViewModel.delete(mReminders.get(position));
                     }
 
                 };
@@ -131,12 +143,11 @@ and uses callbacks to signal when a user is performing these actions.
 
                 //Check if some text has been added
 
-                if (!(TextUtils.isEmpty(text)))
-                {
+                if (!(TextUtils.isEmpty(text))) {
                     //Add the text to the list (datamodel)
                     //mReminders.add(newReminder);
 
-                    new ReminderAsyncTask(TASK_INSERT_REMINDER).execute(newReminder);
+                    mMainViewModel.insert(newReminder);
                     //Tell the adapter that the data set has been modified: the screen will be refreshed.
 
                     //Initialize the EditText for the next item
@@ -175,12 +186,11 @@ and uses callbacks to signal when a user is performing these actions.
     }
 
 
-
     private void updateUI() {
 
         if (mAdapter == null) {
 
-            mAdapter = new ReminderAdapter( mReminders, this);
+            mAdapter = new ReminderAdapter(mReminders, this);
 
             mRecyclerView.setAdapter(mAdapter);
 
@@ -197,16 +207,15 @@ and uses callbacks to signal when a user is performing these actions.
 //        Toast.makeText(this, ""+i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
-        intent.putExtra(EXTRA_REMINDER,  mReminders.get(i));
+        intent.putExtra(EXTRA_REMINDER, mReminders.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
 
 
-    public void startPlaytest()
-    {
+    public void startPlaytest() {
         ArrayList<String> textList = new ArrayList<String>();
 
-        for (Reminder r: mReminders) {
+        for (Reminder r : mReminders) {
             textList.add(r.getReminderText());
         }
         Intent intent = new Intent(MainActivity.this, PlaytestActivity.class);
@@ -228,21 +237,22 @@ and uses callbacks to signal when a user is performing these actions.
 
                 // New timestamp: timestamp of update
 
-                new ReminderAsyncTask(TASK_UPDATE_REMINDER).execute(updatedReminder);
+                mMainViewModel.update(updatedReminder);
 
             }
         }
     }
+}
 
 
-
+/*
     public void onReminderDbUpdated(List list) {
 
         mReminders = list;
         updateUI();
 
-    }
-
+    }*/
+/*
     public class ReminderAsyncTask extends AsyncTask<Reminder, Void, List> {
 
 
@@ -251,9 +261,9 @@ and uses callbacks to signal when a user is performing these actions.
 
         public ReminderAsyncTask(int taskCode) {
             this.taskCode = taskCode;
-        }
+        }*/
 
-
+/*
         @Override
 
         protected List doInBackground(Reminder... reminders) {
@@ -284,16 +294,12 @@ and uses callbacks to signal when a user is performing these actions.
             return db.reminderDao().getAllReminders();
 
         }
-
-
+*/
+        /*
         @Override
 
         protected void onPostExecute(List list) {
 
             super.onPostExecute(list);
             onReminderDbUpdated(list);
-        }
-
-    }
-
-}
+        } */
