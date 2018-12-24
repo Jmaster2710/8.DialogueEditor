@@ -15,7 +15,6 @@ public class MainViewModel extends ViewModel {
     public MainViewModel(Context context) {
 
         mRepository = new ReminderRepository(context);
-
         mReminders = mRepository.getAllReminders();
 
     }

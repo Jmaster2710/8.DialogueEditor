@@ -48,7 +48,7 @@ public class UpdateActivity extends AppCompatActivity {
 //(reminderUpdate.setmReminderText(updatedReminderText)));
 
                 if (!TextUtils.isEmpty(text)) {
-                    reminderUpdate.setmReminderText(text);
+                    reminderUpdate.setReminderText(text);
 
                     //Prepare the return parameter and return
                     Intent resultIntent = new Intent();

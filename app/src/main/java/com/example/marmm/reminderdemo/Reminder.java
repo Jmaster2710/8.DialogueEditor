@@ -16,6 +16,14 @@ public class Reminder implements Parcelable {
     @ColumnInfo (name = "remindertext")
     private String mReminderText;
 
+    @ColumnInfo (name = "remindername")
+    private String mReminderName;
+
+
+    public Reminder(String mReminderText, String mReminderName) {
+        this.mReminderText = mReminderText;
+        this.mReminderName = mReminderName;
+    }
 
     public Long getId() {
         return id;
@@ -33,15 +41,16 @@ public class Reminder implements Parcelable {
     public String getReminderText() {
         return mReminderText;
     }
-
-    public void setmReminderText(String mReminderText) {
+    public void setReminderText(String mReminderText) {
         this.mReminderText = mReminderText;
     }
 
-    public Reminder(String mReminderText) {
 
-        this.mReminderText = mReminderText;
-
+    public String getReminderName() {
+        return mReminderName;
+    }
+    public void setReminderName(String mReminderName) {
+        this.mReminderName = mReminderName;
     }
 
     @Override

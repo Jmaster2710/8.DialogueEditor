@@ -26,6 +26,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements ReminderAdapter.ReminderClickListener {
 
 
@@ -85,15 +89,7 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
             }
         });
 
-
-//Set the long click listener for reminders in the list in order to remove a reminder
-
-
-/*
-Add a touch helper to the RecyclerView to recognize when a user swipes to delete a list entry.
-An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-and uses callbacks to signal when a user is performing these actions.
-*/
+        /*touch helper*/
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
 
@@ -126,26 +122,17 @@ and uses callbacks to signal when a user is performing these actions.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                //Get the user text from the textfield
+            public void onClick(View view) {                //Get the user text from the textfield
 
                 String text = mNewReminderText.getText().toString();
-                Reminder newReminder = new Reminder(text);
-
 
                 //Check if some text has been added
-
                 if (!(TextUtils.isEmpty(text))) {
                     //Add the text to the list (datamodel)
                     //mReminders.add(newReminder);
 
-                    mMainViewModel.insert(newReminder);
-                    //Tell the adapter that the data set has been modified: the screen will be refreshed.
+                    requestData(text);
 
-                    //Initialize the EditText for the next item
-
-                    mNewReminderText.setText("");
 
                 } else {
                     //Show a message to the user if the textfield is empty
@@ -239,4 +226,41 @@ and uses callbacks to signal when a user is performing these actions.
             }
         }
     }
+
+
+    private void requestData(final String text)
+
+    {
+        NamesApiService service = NamesApiService.retrofit.create(NamesApiService.class);
+
+        /**
+         * Make an a-synchronous call by enqueing and definition of callbacks.
+         */
+
+        Call<NameItem> call = service.getName();
+
+        call.enqueue(new Callback<NameItem>() {
+
+            @Override
+            public void onResponse(Call<NameItem> call, Response<NameItem> response) {
+                NameItem nameItem = response.body();
+
+                Reminder newReminder = new Reminder(text, nameItem.getName());
+                mMainViewModel.insert(newReminder);
+                //Tell the adapter that the data set has been modified: the screen will be refreshed.
+
+                //Initialize the EditText for the next item
+                mNewReminderText.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<NameItem> call, Throwable t) {
+                Log.d("error",t.toString());
+            }
+
+        });
+
+    }
+
+
 }
