@@ -233,17 +233,18 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
     {
         NamesApiService service = NamesApiService.retrofit.create(NamesApiService.class);
 
-        /**
-         * Make an a-synchronous call by enqueing and definition of callbacks.
-         */
-
-        Call<NameItem> call = service.getName();
+        Call<NameItem> call = service.getRandomName();
 
         call.enqueue(new Callback<NameItem>() {
-
             @Override
             public void onResponse(Call<NameItem> call, Response<NameItem> response) {
                 NameItem nameItem = response.body();
+                
+                Log.d("Debug", "Response Succes =" + response.isSuccessful());
+
+                Log.d("Debug", "Information got1: " + response.body());
+
+                Log.d("Debug", "Information gotten: " + response.code());
 
                 Reminder newReminder = new Reminder(text, nameItem.getName());
                 mMainViewModel.insert(newReminder);

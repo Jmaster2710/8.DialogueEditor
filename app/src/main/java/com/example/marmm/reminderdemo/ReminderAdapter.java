@@ -51,6 +51,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
         //Sets text of the dialogue
         viewHolder.textView.setText(reminder.getReminderText());
+        viewHolder.nameView.setText(reminder.getReminderName());
     }
 
     @Override
@@ -61,10 +62,12 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView textView;
+        public TextView nameView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.dialogueText);
+            nameView = itemView.findViewById(R.id.dialogueName);
             itemView.setOnClickListener(this);
 
         }
