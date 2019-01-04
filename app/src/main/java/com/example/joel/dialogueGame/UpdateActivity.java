@@ -18,7 +18,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     private EditText mDialogueView;
     private TextView mNameView;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
