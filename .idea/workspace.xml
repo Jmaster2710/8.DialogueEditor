@@ -20,9 +20,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/PlaytestActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/PlaytestActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_playtest.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_playtest.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -122,8 +120,8 @@
       <file leaf-file-name="NamesApiService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="38" />
+            <state relative-caret-position="119">
+              <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -2483,15 +2481,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/DialogueRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/MainViewModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NameItemList.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/PlaytestActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_playtest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -2751,7 +2749,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2769,7 +2767,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15085287" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.309628" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32218507" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3258,8 +3256,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/joel/dialogueGame/NamesApiService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="38" />
+        <state relative-caret-position="119">
+          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
           <folding />
         </state>
       </provider>
