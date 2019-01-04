@@ -1,9 +1,7 @@
 package com.example.joel.dialogueGame;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,51 +10,51 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
+public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHolder> {
 
 
-    private List<Reminder> mReminders;
+    private List<Dialogue> mDialogues;
 
 
-    final private ReminderClickListener mReminderClickListener;
+    final private DialogueClickListener mDialogueClickListener;
 
-    public interface ReminderClickListener{
+    public interface DialogueClickListener {
 
         void reminderOnClick (int i);
 
     }
 
-    public ReminderAdapter(List<Reminder> mReminder, ReminderClickListener mReminderClickListener) {
-        this.mReminders = mReminder;
-        this.mReminderClickListener = mReminderClickListener;
+    public DialogueAdapter(List<Dialogue> mDialogue, DialogueClickListener mDialogueClickListener) {
+        this.mDialogues = mDialogue;
+        this.mDialogueClickListener = mDialogueClickListener;
     }
 
     @NonNull
     @Override
-    public ReminderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public DialogueAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         Context context = viewGroup.getContext();
         LayoutInflater inflater= LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.textbox_cell, null);
 
 // Return a new holder instance
-        ReminderAdapter.ViewHolder viewHolder = new ReminderAdapter.ViewHolder(view);
+        DialogueAdapter.ViewHolder viewHolder = new DialogueAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReminderAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull DialogueAdapter.ViewHolder viewHolder, int i) {
 
-        Reminder reminder =  mReminders.get(i);
+        Dialogue dialogue =  mDialogues.get(i);
 
         //Sets text of the dialogue
-        viewHolder.textView.setText(reminder.getReminderText());
-        viewHolder.nameView.setText(reminder.getReminderName());
+        viewHolder.textView.setText(dialogue.getDialogueText());
+        viewHolder.nameView.setText(dialogue.getDialogueName());
     }
 
     @Override
     public int getItemCount() {
-        return mReminders.size();
+        return mDialogues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -75,13 +73,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            mReminderClickListener.reminderOnClick(clickedPosition);
+            mDialogueClickListener.reminderOnClick(clickedPosition);
         }
     }
 
 
-    public void swapList (List<Reminder> newList) {
-        mReminders = newList;
+    public void swapList (List<Dialogue> newList) {
+        mDialogues = newList;
 
         if (newList != null) {
             // Force the RecyclerView to refresh

@@ -10,21 +10,21 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface ReminderDao {
+public interface DialogueDao {
 
-    @Query("SELECT * FROM reminder")
-    public LiveData<List<Reminder>> getAllReminders();
+    @Query("SELECT * FROM dialogue")
+    public LiveData<List<Dialogue>> getAllDialogues();
 
 
     @Insert
-    public void insertReminders(Reminder reminders);
+    public void insertDialogues(Dialogue reminders);
 
 
     @Delete
-    public void deleteReminders(Reminder reminders);
+    public void deleteDialogues(Dialogue reminders);
 
 
     @Update
-    public void updateReminders(Reminder reminders);
+    public void updateDialogues(Dialogue reminders);
 
 }

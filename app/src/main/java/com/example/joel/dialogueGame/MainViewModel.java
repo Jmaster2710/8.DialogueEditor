@@ -7,36 +7,36 @@ import android.content.Context;
 import java.util.List;
 
 public class MainViewModel extends ViewModel {
-    private ReminderRepository mRepository;
+    private DialogueRepository mRepository;
 
-    private LiveData<List<Reminder>> mReminders;
+    private LiveData<List<Dialogue>> mDialogues;
 
 
     public MainViewModel(Context context) {
 
-        mRepository = new ReminderRepository(context);
-        mReminders = mRepository.getAllReminders();
+        mRepository = new DialogueRepository(context);
+        mDialogues = mRepository.getAllDialogues();
 
     }
 
 
-    public LiveData<List<Reminder>> getReminders() {
-        return mReminders;
+    public LiveData<List<Dialogue>> getDialogues() {
+        return mDialogues;
     }
 
 
-    public void insert(Reminder reminder) {
-        mRepository.insert(reminder);
+    public void insert(Dialogue dialogue) {
+        mRepository.insert(dialogue);
     }
 
 
-    public void update(Reminder reminder) {
-        mRepository.update(reminder);
+    public void update(Dialogue dialogue) {
+        mRepository.update(dialogue);
     }
 
 
-    public void delete(Reminder reminder) {
+    public void delete(Dialogue dialogue) {
 
-        mRepository.delete(reminder);
+        mRepository.delete(dialogue);
     }
 }

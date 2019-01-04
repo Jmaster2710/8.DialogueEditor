@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class UpdateActivity extends AppCompatActivity {
 
 
 
-    private EditText mReminderView;
+    private EditText mDialogueView;
+    private TextView mNameView;
 
 
     @Override
@@ -28,37 +30,37 @@ public class UpdateActivity extends AppCompatActivity {
 
         //Init local variables
 
-        mReminderView = findViewById(R.id.editText_update);
+        mDialogueView = findViewById(R.id.editText_update);
+        mNameView = findViewById(R.id.view_name);
 
 
 //Obtain the parameters provided by MainActivity
 
-        final Reminder reminderUpdate = getIntent().getParcelableExtra(MainActivity.EXTRA_REMINDER);
+        final Dialogue dialogueUpdate = getIntent().getParcelableExtra(MainActivity.EXTRA_REMINDER);
 
-        mReminderView.setText(reminderUpdate.getReminderText());
+        mDialogueView.setText(dialogueUpdate.getDialogueText());
+        mNameView.setText(dialogueUpdate.getDialogueName());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String text = mReminderView.getText().toString();
+                String text = mDialogueView.getText().toString();
 
 
-//(reminderUpdate.setmReminderText(updatedReminderText)));
 
                 if (!TextUtils.isEmpty(text)) {
-                    reminderUpdate.setReminderText(text);
+                    dialogueUpdate.setDialogueText(text);
 
                     //Prepare the return parameter and return
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(MainActivity.EXTRA_REMINDER, reminderUpdate);
+                    resultIntent.putExtra(MainActivity.EXTRA_REMINDER, dialogueUpdate);
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
 
                 } else {
-
-                    Snackbar.make(view, "Enter some data", Snackbar.LENGTH_LONG);
+                    Snackbar.make(view, R.string.enter_text, Snackbar.LENGTH_LONG);
                 }
 
 

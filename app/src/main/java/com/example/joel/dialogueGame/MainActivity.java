@@ -2,7 +2,6 @@ package com.example.joel.dialogueGame;
 
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,9 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements ReminderAdapter.ReminderClickListener {
+public class MainActivity extends AppCompatActivity implements DialogueAdapter.DialogueClickListener {
 
 
     //Local variables
@@ -38,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
 //Constants used when calling the update activity
 
-    public static final String EXTRA_REMINDER = "Reminder";
+    public static final String EXTRA_REMINDER = "Dialogue";
 
     public static final int REQUESTCODE = 1234;
 
@@ -46,14 +43,14 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
     public static AppDatabase db;
 
-    private ReminderAdapter mAdapter;
+    private DialogueAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private Button mPlaytestButton;
 
     private MainViewModel mMainViewModel;
 
-    private List<Reminder> mReminders;
-    private EditText mNewReminderText;
+    private List<Dialogue> mDialogues;
+    private EditText mNewDialogueText;
 
 
     @Override
@@ -70,19 +67,19 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
         mMainViewModel = new MainViewModel(getApplicationContext());
 
-        mMainViewModel.getReminders().observe(this, new Observer<List<Reminder>>() {
+        mMainViewModel.getDialogues().observe(this, new Observer<List<Dialogue>>() {
 
             @Override
 
-            public void onChanged(@Nullable List<Reminder> reminders) {
-                mReminders = reminders;
+            public void onChanged(@Nullable List<Dialogue> dialogues) {
+                mDialogues = dialogues;
                 updateUI();
             }
 
         });
 
-        mNewReminderText = findViewById(R.id.editText_main);
-        mReminders = new ArrayList<>();
+        mNewDialogueText = findViewById(R.id.editText_main);
+        mDialogues = new ArrayList<>();
         mPlaytestButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startPlaytest();
@@ -109,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
                         //Get the index corresponding to the selected position
                         int position = (viewHolder.getAdapterPosition());
 
-                        //mReminders.remove(position);
-                        mMainViewModel.delete(mReminders.get(position));
+                        //mDialogues.remove(position);
+                        mMainViewModel.delete(mDialogues.get(position));
                     }
 
                 };
@@ -124,12 +121,12 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
             @Override
             public void onClick(View view) {                //Get the user text from the textfield
 
-                String text = mNewReminderText.getText().toString();
+                String text = mNewDialogueText.getText().toString();
 
                 //Check if some text has been added
                 if (!(TextUtils.isEmpty(text))) {
                     //Add the text to the list (datamodel)
-                    //mReminders.add(newReminder);
+                    //mDialogues.add(newDialogue);
 
                     requestData(text);
 
@@ -170,13 +167,13 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
         if (mAdapter == null) {
 
-            mAdapter = new ReminderAdapter(mReminders, this);
+            mAdapter = new DialogueAdapter(mDialogues, this);
 
             mRecyclerView.setAdapter(mAdapter);
 
         } else {
 
-            mAdapter.swapList(mReminders);
+            mAdapter.swapList(mDialogues);
 
         }
 
@@ -184,10 +181,9 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
     @Override
     public void reminderOnClick(int i) {
-//        Toast.makeText(this, ""+i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
-        intent.putExtra(EXTRA_REMINDER, mReminders.get(i));
+        intent.putExtra(EXTRA_REMINDER, mDialogues.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
 
@@ -196,10 +192,10 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
         ArrayList<String> textList = new ArrayList<String>();
 
-        if (mReminders.size() > 0) {
+        if (mDialogues.size() > 0) {
 
-            for (Reminder r : mReminders) {
-                textList.add(r.getReminderText());
+            for (Dialogue r : mDialogues) {
+                textList.add(r.getDialogueText());
             }
             Intent intent = new Intent(MainActivity.this, PlaytestActivity.class);
             intent.putStringArrayListExtra("stringList", (ArrayList<String>) textList);
@@ -217,11 +213,11 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
             if (resultCode == RESULT_OK) {
 
-                Reminder updatedReminder = data.getParcelableExtra(MainActivity.EXTRA_REMINDER);
+                Dialogue updatedDialogue = data.getParcelableExtra(MainActivity.EXTRA_REMINDER);
 
                 // New timestamp: timestamp of update
 
-                mMainViewModel.update(updatedReminder);
+                mMainViewModel.update(updatedDialogue);
 
             }
         }
@@ -246,12 +242,12 @@ public class MainActivity extends AppCompatActivity implements ReminderAdapter.R
 
                 Log.d("Debug", "Information gotten: " + response.code());
 
-                Reminder newReminder = new Reminder(text, nameItem.getName());
-                mMainViewModel.insert(newReminder);
+                Dialogue newDialogue = new Dialogue(text, nameItem.getName());
+                mMainViewModel.insert(newDialogue);
                 //Tell the adapter that the data set has been modified: the screen will be refreshed.
 
                 //Initialize the EditText for the next item
-                mNewReminderText.setText("");
+                mNewDialogueText.setText("");
             }
 
             @Override

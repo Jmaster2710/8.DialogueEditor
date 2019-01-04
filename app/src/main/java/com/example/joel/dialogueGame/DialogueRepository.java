@@ -7,36 +7,36 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ReminderRepository {
+public class DialogueRepository {
 
     private AppDatabase mAppDatabase;
 
-    private ReminderDao mReminderDao;
+    private DialogueDao mDialogueDao;
 
-    private LiveData<List<Reminder>> mReminders;
+    private LiveData<List<Dialogue>> mDialogues;
 
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
 
-    public ReminderRepository (Context context) {
+    public DialogueRepository(Context context) {
 
         mAppDatabase = AppDatabase.getInstance(context);
 
-        mReminderDao = mAppDatabase.reminderDao();
+        mDialogueDao = mAppDatabase.dialogueDao();
 
-        mReminders = mReminderDao.getAllReminders();
-
-    }
-
-
-    public LiveData<List<Reminder>> getAllReminders() {
-
-        return mReminders;
+        mDialogues = mDialogueDao.getAllDialogues();
 
     }
 
 
-    public void insert(final Reminder reminder) {
+    public LiveData<List<Dialogue>> getAllDialogues() {
+
+        return mDialogues;
+
+    }
+
+
+    public void insert(final Dialogue dialogue) {
 
         mExecutor.execute(new Runnable() {
 
@@ -44,7 +44,7 @@ public class ReminderRepository {
 
             public void run() {
 
-                mReminderDao.insertReminders(reminder);
+                mDialogueDao.insertDialogues(dialogue);
 
             }
 
@@ -53,7 +53,7 @@ public class ReminderRepository {
     }
 
 
-    public void update(final Reminder reminder) {
+    public void update(final Dialogue dialogue) {
 
         mExecutor.execute(new Runnable() {
 
@@ -61,8 +61,7 @@ public class ReminderRepository {
 
             public void run() {
 
-                mReminderDao.updateReminders(reminder);
-
+                mDialogueDao.updateDialogues(dialogue);
             }
 
         });
@@ -70,18 +69,13 @@ public class ReminderRepository {
     }
 
 
-    public void delete(final Reminder reminder) {
+    public void delete(final Dialogue dialogue) {
 
         mExecutor.execute(new Runnable() {
-
             @Override
-
             public void run() {
-
-                mReminderDao.deleteReminders(reminder);
-
+                mDialogueDao.deleteDialogues(dialogue);
             }
-
         });
 
     }

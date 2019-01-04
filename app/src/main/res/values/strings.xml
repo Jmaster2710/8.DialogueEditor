@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">ReminderDemo</string>
+    <string name="app_name">Dialogue Editor</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_update">UpdateActivity</string>
     <string name="name_back_button">Back</string>
     <string name="playtest_button">Playtest</string>
+    <string name="enter_text">Enter some dialogue</string>
 </resources>
