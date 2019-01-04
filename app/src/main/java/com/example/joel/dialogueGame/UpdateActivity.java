@@ -42,9 +42,6 @@ public class UpdateActivity extends AppCompatActivity {
         mDialogueView.setText(dialogueUpdate.getDialogueText());
         mNameView.setText(dialogueUpdate.getDialogueName());
 
-        Log.d("Debug", "Text =" + dialogueUpdate.getDialogueText());
-        Log.d("Debug", "Name =" + dialogueUpdate.getDialogueName());
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

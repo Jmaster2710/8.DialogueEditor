@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+
 public interface NamesApiService {
 
     String BASE_URL = "https://uinames.com/";
@@ -14,5 +15,6 @@ public interface NamesApiService {
             .build();
 
     @GET("/api/")
-    Call<NameItem> getRandomName();
+
+    Call<NameItem> getNames();
 }

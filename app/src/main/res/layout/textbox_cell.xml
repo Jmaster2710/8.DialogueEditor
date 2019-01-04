@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Naam" />
+            android:text="Naam"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/dialogueText"

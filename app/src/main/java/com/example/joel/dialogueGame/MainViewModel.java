@@ -24,7 +24,6 @@ public class MainViewModel extends ViewModel {
         return mDialogues;
     }
 
-
     public void insert(Dialogue dialogue) {
         mRepository.insert(dialogue);
     }

@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     private List<Dialogue> mDialogues;
     private EditText mNewDialogueText;
 
+    private NameItem mName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Get names from the API
+        requestData();
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mPlaytestButton = findViewById(R.id.playtest_button);
@@ -87,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
         });
 
         /*touch helper*/
-
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
 
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -126,8 +129,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
                 if (!(TextUtils.isEmpty(text))) {
                     //Add the text to the list (datamodel)
                     //mDialogues.add(newDialogue);
-
-                    requestData(text);
+                    AddDialogue(text);
 
 
                 } else {
@@ -178,14 +180,22 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
     }
 
+    private void AddDialogue(String text)
+    {
+        Dialogue newDialogue = new Dialogue(text, mName.getName());
+        mMainViewModel.insert(newDialogue);
+
+        //Initialize the EditText for the next item
+        mNewDialogueText.setText("");
+
+        requestData();
+    }
+
     @Override
     public void reminderOnClick(int i) {
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
 
-
-        Log.d("Debug", "Given text" + mDialogues.get(i).getDialogueText());
-        Log.d("Debug", "Given name" + mDialogues.get(i).getDialogueName());
         intent.putExtra(EXTRA_REMINDER, mDialogues.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
@@ -227,28 +237,25 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     }
 
 
-    private void requestData(final String text)
-
+    private void requestData()
     {
+        Log.d("Debug", "API CALLED");
         NamesApiService service = NamesApiService.retrofit.create(NamesApiService.class);
-        Call<NameItem> call = service.getRandomName();
+        Call<NameItem> call = service.getNames();
         call.enqueue(new Callback<NameItem>() {
             @Override
             public void onResponse(Call<NameItem> call, Response<NameItem> response) {
-                NameItem nameItem = response.body();
-                
+
                 Log.d("Debug", "Response Succes =" + response.isSuccessful());
 
                 Log.d("Debug", "Information got1: " + response.body());
 
                 Log.d("Debug", "Information gotten: " + response.code());
 
-                Dialogue newDialogue = new Dialogue(text, nameItem.getName());
-                mMainViewModel.insert(newDialogue);
-                //Tell the adapter that the data set has been modified: the screen will be refreshed.
+                //mName.addAll(Arrays.asList(response.body().nameItems));
+                mName = response.body();
 
-                //Initialize the EditText for the next item
-                mNewDialogueText.setText("");
+                //Log.d("Debug", mName.get(1).getName());
             }
 
             @Override
