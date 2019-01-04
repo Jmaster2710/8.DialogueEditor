@@ -28,14 +28,9 @@ public class MainViewModel extends ViewModel {
         mRepository.insert(dialogue);
     }
 
-
     public void update(Dialogue dialogue) {
         mRepository.update(dialogue);
     }
 
-
-    public void delete(Dialogue dialogue) {
-
-        mRepository.delete(dialogue);
-    }
+    public void delete(Dialogue dialogue) { mRepository.delete(dialogue); }
 }

@@ -10,9 +10,7 @@ import android.content.Context;
 
 public abstract class AppDatabase extends RoomDatabase {
 
-
     public abstract DialogueDao dialogueDao();
-
     private final static String NAME_DATABASE = "dialogue_db";
 
 
@@ -24,7 +22,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
 
         if (sInstance == null) {
-
             sInstance = Room.databaseBuilder(context, AppDatabase.class, NAME_DATABASE)
                     .fallbackToDestructiveMigration()
                     .build();

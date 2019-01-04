@@ -18,8 +18,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     private EditText mDialogueView;
     private TextView mNameView;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,17 +26,15 @@ public class UpdateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        //Init local variables
-
+        //Assign the textviews
         mDialogueView = findViewById(R.id.editText_update);
         mNameView = findViewById(R.id.view_name);
 
 
-//Obtain the parameters provided by MainActivity
-
+        //Get the parameters from by MainActivity
         final Dialogue dialogueUpdate = getIntent().getParcelableExtra(MainActivity.EXTRA_REMINDER);
 
+        //Set the textviews
         mDialogueView.setText(dialogueUpdate.getDialogueText());
         mNameView.setText(dialogueUpdate.getDialogueName());
 
@@ -47,7 +44,6 @@ public class UpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String text = mDialogueView.getText().toString();
-
 
                 if (!TextUtils.isEmpty(text)) {
                     dialogueUpdate.setDialogueText(text);

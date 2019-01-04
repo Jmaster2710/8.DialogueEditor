@@ -35,7 +35,7 @@ public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHo
         LayoutInflater inflater= LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.textbox_cell, null);
 
-// Return a new holder instance
+        // Return a new holder instance
         DialogueAdapter.ViewHolder viewHolder = new DialogueAdapter.ViewHolder(view);
         return viewHolder;
     }

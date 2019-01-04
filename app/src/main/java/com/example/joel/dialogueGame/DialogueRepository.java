@@ -10,22 +10,15 @@ import java.util.concurrent.Executors;
 public class DialogueRepository {
 
     private AppDatabase mAppDatabase;
-
     private DialogueDao mDialogueDao;
-
     private LiveData<List<Dialogue>> mDialogues;
-
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
 
     public DialogueRepository(Context context) {
-
         mAppDatabase = AppDatabase.getInstance(context);
-
         mDialogueDao = mAppDatabase.dialogueDao();
-
         mDialogues = mDialogueDao.getAllDialogues();
-
     }
 
 
@@ -41,11 +34,8 @@ public class DialogueRepository {
         mExecutor.execute(new Runnable() {
 
             @Override
-
             public void run() {
-
                 mDialogueDao.insertDialogues(dialogue);
-
             }
 
         });
@@ -60,7 +50,6 @@ public class DialogueRepository {
             @Override
 
             public void run() {
-
                 mDialogueDao.updateDialogues(dialogue);
             }
 
@@ -70,13 +59,11 @@ public class DialogueRepository {
 
 
     public void delete(final Dialogue dialogue) {
-
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 mDialogueDao.deleteDialogues(dialogue);
             }
         });
-
     }
 }
