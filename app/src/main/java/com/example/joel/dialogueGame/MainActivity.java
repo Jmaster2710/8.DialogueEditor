@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
                     //Add the text to the list (datamodel)
                     //mDialogues.add(newDialogue);
                     AddDialogue(text);
-
-
                 } else {
                     //Show a message to the user if the textfield is empty
                     Snackbar.make(view, "Please enter some text in the textfield", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -165,17 +163,11 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
 
     private void updateUI() {
-
         if (mAdapter == null) {
-
             mAdapter = new DialogueAdapter(mDialogues, this);
-
             mRecyclerView.setAdapter(mAdapter);
-
         } else {
-
             mAdapter.swapList(mDialogues);
-
         }
 
     }
@@ -204,34 +196,28 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     public void startPlaytest() {
 
         ArrayList<String> textList = new ArrayList<String>();
+        ArrayList<String> nameList = new ArrayList<String>();
 
         if (mDialogues.size() > 0) {
 
             for (Dialogue r : mDialogues) {
                 textList.add(r.getDialogueText());
+                nameList.add(r.getDialogueName());
             }
             Intent intent = new Intent(MainActivity.this, PlaytestActivity.class);
             intent.putStringArrayListExtra("stringList", (ArrayList<String>) textList);
+            intent.putStringArrayListExtra("nameList" , (ArrayList<String>) nameList);
             startActivity(intent);
         }
 
     }
 
     @Override
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         if (requestCode == REQUESTCODE) {
-
             if (resultCode == RESULT_OK) {
-
                 Dialogue updatedDialogue = data.getParcelableExtra(MainActivity.EXTRA_REMINDER);
-
-                // New timestamp: timestamp of update
-
                 mMainViewModel.update(updatedDialogue);
-
             }
         }
     }
@@ -246,16 +232,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
             @Override
             public void onResponse(Call<NameItem> call, Response<NameItem> response) {
 
-                Log.d("Debug", "Response Succes =" + response.isSuccessful());
-
-                Log.d("Debug", "Information got1: " + response.body());
-
-                Log.d("Debug", "Information gotten: " + response.code());
-
-                //mName.addAll(Arrays.asList(response.body().nameItems));
                 mName = response.body();
-
-                //Log.d("Debug", mName.get(1).getName());
             }
 
             @Override

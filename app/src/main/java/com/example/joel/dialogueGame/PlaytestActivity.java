@@ -14,8 +14,10 @@ public class PlaytestActivity extends AppCompatActivity {
 
     public Button mButtonBack;
     public TextView mDialogue;
+    public TextView mName;
     public String mDrawString;
     public ArrayList<String> mStrings = new ArrayList<String>();
+    public ArrayList<String> mNames = new ArrayList<String>();
 
     public int mStringIndex;
     public int mCharIndex;
@@ -24,59 +26,6 @@ public class PlaytestActivity extends AppCompatActivity {
 
     long startTime = 0;
 
-    //runs without a timer by reposting this handler at the end of the runnable
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-
-            timerHandler.postDelayed(this, mTextDelay);
-
-            //As long as the sentenced is not finished
-            if (mDrawString.length() < mStrings.get(mStringIndex).length()) {
-                mDrawString += mStrings.get(mStringIndex).charAt(mCharIndex);
-                mCharIndex ++;
-            }
-            mDialogue.setText(String.format("%d:%02d", minutes, seconds) + mDrawString);
-
-        }
-    };
-
-    public void nextText()
-    {
-        //Has the dialogue finished showing all text
-        if (mDrawString.length() == mStrings.get(mStringIndex).length())
-        {
-            //Go to next one.
-            if (mStringIndex < mStrings.size() - 1)
-            {
-                mStringIndex++;
-                mCharIndex = 0;
-                mDrawString = "";
-            } else
-            {
-                endTest();
-            }
-
-        } else
-        {
-            mDrawString = mStrings.get(mStringIndex);
-        }
-
-
-    }
-
-    public void endTest()
-    {
-        Intent intent = new Intent(PlaytestActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,15 +33,18 @@ public class PlaytestActivity extends AppCompatActivity {
 
         //Get all the dialogue that needs to be played
         mStrings = getIntent().getStringArrayListExtra("stringList");
+        mNames = getIntent().getStringArrayListExtra("nameList");
 
         mDialogue = findViewById(R.id.dialogueText);
 
-        //For showing the text one by one
+        //Set the name display
+        mName = findViewById(R.id.nameView);
+        mName.setText(mNames.get(mStringIndex));
+
+        //For showing the text one char at a time
         mCharIndex = 0;
         mStringIndex = 0;
-
         mDrawString = "";
-       // mDialogue.setText(mStrings.get(0));
 
         mDialogue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -112,4 +64,61 @@ public class PlaytestActivity extends AppCompatActivity {
         timerHandler.postDelayed(timerRunnable, 0);
 
     }
+
+    //runs without a timer by reposting this handler at the end of the runnable
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+            timerHandler.postDelayed(this, mTextDelay);
+
+            //As long as the sentenced is not finished
+            if (mDrawString.length() < mStrings.get(mStringIndex).length()) {
+                mDrawString += mStrings.get(mStringIndex).charAt(mCharIndex);
+                mCharIndex ++;
+            }
+            mDialogue.setText(mDrawString);
+
+        }
+    };
+
+    public void nextText()
+    {
+        //Has the dialogue finished showing all text
+        if (mDrawString.length() == mStrings.get(mStringIndex).length())
+        {
+            //Go to next one.
+            if (mStringIndex < mStrings.size() - 1)
+            {
+                mStringIndex++;
+                mCharIndex = 0;
+                mDrawString = "";
+                mName.setText(mNames.get(mStringIndex));
+
+            } else
+            {
+                endTest();
+            }
+
+        } else
+        {
+            mDrawString = mStrings.get(mStringIndex);
+        }
+
+
+    }
+
+    public void endTest()
+    {
+        Intent intent = new Intent(PlaytestActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
 }
