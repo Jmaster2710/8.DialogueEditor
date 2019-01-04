@@ -8,7 +8,7 @@ import android.content.Context;
 
 @Database(entities = {Dialogue.class}, version = 4)
 
-public abstract  class AppDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase {
 
 
     public abstract DialogueDao dialogueDao();
@@ -23,9 +23,9 @@ public abstract  class AppDatabase extends RoomDatabase {
     public static AppDatabase getInstance(Context context) {
 
 
-        if(sInstance == null) {
+        if (sInstance == null) {
 
-            sInstance = Room.databaseBuilder(context, AppDatabase.class,   NAME_DATABASE)
+            sInstance = Room.databaseBuilder(context, AppDatabase.class, NAME_DATABASE)
                     .fallbackToDestructiveMigration()
                     .build();
         }

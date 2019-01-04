@@ -16,7 +16,6 @@ import android.widget.TextView;
 public class UpdateActivity extends AppCompatActivity {
 
 
-
     private EditText mDialogueView;
     private TextView mNameView;
 
@@ -50,7 +49,6 @@ public class UpdateActivity extends AppCompatActivity {
                 String text = mDialogueView.getText().toString();
 
 
-
                 if (!TextUtils.isEmpty(text)) {
                     dialogueUpdate.setDialogueText(text);
 
@@ -63,8 +61,6 @@ public class UpdateActivity extends AppCompatActivity {
                 } else {
                     Snackbar.make(view, R.string.enter_text, Snackbar.LENGTH_LONG);
                 }
-
-
             }
         });
     }

@@ -6,17 +6,17 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@Entity (tableName = "dialogue")
+@Entity(tableName = "dialogue")
 public class Dialogue implements Parcelable {
 
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    @ColumnInfo (name = "dialoguetext")
+    @ColumnInfo(name = "dialoguetext")
     private String mDialogueText;
 
-    @ColumnInfo (name = "dialoguename")
+    @ColumnInfo(name = "dialoguename")
     private String mDialogueName;
 
 
@@ -41,12 +41,16 @@ public class Dialogue implements Parcelable {
     public String getDialogueText() {
         return mDialogueText;
     }
+
     public void setDialogueText(String mDialogueText) {
         this.mDialogueText = mDialogueText;
     }
 
 
-    public String getDialogueName() { return mDialogueName;}
+    public String getDialogueName() {
+        return mDialogueName;
+    }
+
     public void setDialogueName(String mDialogueName) {
         this.mDialogueName = mDialogueName;
     }

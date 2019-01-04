@@ -17,6 +17,5 @@ public interface NamesApiService {
             .build();
 
     @GET("/api/?region=" + REGION)
-
     Call<NameItem> getNames();
 }

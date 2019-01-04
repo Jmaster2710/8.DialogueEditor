@@ -46,14 +46,14 @@ public class PlaytestActivity extends AppCompatActivity {
         mStringIndex = 0;
         mDrawString = "";
 
-        mDialogue.setOnClickListener(new View.OnClickListener(){
+        mDialogue.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 nextText();
             }
         });
 
         mButtonBack = findViewById(R.id.button_back);
-        mButtonBack.setOnClickListener(new View.OnClickListener(){
+        mButtonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 endTest();
             }
@@ -81,41 +81,35 @@ public class PlaytestActivity extends AppCompatActivity {
             //As long as the sentenced is not finished
             if (mDrawString.length() < mStrings.get(mStringIndex).length()) {
                 mDrawString += mStrings.get(mStringIndex).charAt(mCharIndex);
-                mCharIndex ++;
+                mCharIndex++;
             }
             mDialogue.setText(mDrawString);
 
         }
     };
 
-    public void nextText()
-    {
+    public void nextText() {
         //Has the dialogue finished showing all text
-        if (mDrawString.length() == mStrings.get(mStringIndex).length())
-        {
+        if (mDrawString.length() == mStrings.get(mStringIndex).length()) {
             //Go to next one.
-            if (mStringIndex < mStrings.size() - 1)
-            {
+            if (mStringIndex < mStrings.size() - 1) {
                 mStringIndex++;
                 mCharIndex = 0;
                 mDrawString = "";
                 mName.setText(mNames.get(mStringIndex));
 
-            } else
-            {
+            } else {
                 endTest();
             }
 
-        } else
-        {
+        } else {
             mDrawString = mStrings.get(mStringIndex);
         }
 
 
     }
 
-    public void endTest()
-    {
+    public void endTest() {
         Intent intent = new Intent(PlaytestActivity.this, MainActivity.class);
         startActivity(intent);
     }

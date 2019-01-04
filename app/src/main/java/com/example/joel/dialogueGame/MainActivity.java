@@ -30,17 +30,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements DialogueAdapter.DialogueClickListener {
 
 
-    //Local variables
-
-
-//Constants used when calling the update activity
-
+    //Constants used when calling the update activity
     public static final String EXTRA_REMINDER = "Dialogue";
-
     public static final int REQUESTCODE = 1234;
 
     private int mModifyPosition;
-
     public static AppDatabase db;
 
     private DialogueAdapter mAdapter;
@@ -52,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     private List<Dialogue> mDialogues;
     private EditText mNewDialogueText;
 
+    //This is the currently loaded name in the app.
     private NameItem mName;
 
 
@@ -62,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Get names from the API
+        //Get names from the API, do this at the start so it is loaded by the time the user has written their dialogue
         requestData();
 
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -71,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
         mMainViewModel = new MainViewModel(getApplicationContext());
 
+        //Load in the already existing Dialogues
         mMainViewModel.getDialogues().observe(this, new Observer<List<Dialogue>>() {
 
             @Override
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
                         //Get the index corresponding to the selected position
                         int position = (viewHolder.getAdapterPosition());
 
-                        //mDialogues.remove(position);
+                        //Deletes the swiped dialogue.
                         mMainViewModel.delete(mDialogues.get(position));
                     }
 
@@ -127,40 +123,16 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
                 //Check if some text has been added
                 if (!(TextUtils.isEmpty(text))) {
-                    //Add the text to the list (datamodel)
-                    //mDialogues.add(newDialogue);
+
+                    //Add that dialogue to the list
                     AddDialogue(text);
                 } else {
                     //Show a message to the user if the textfield is empty
-                    Snackbar.make(view, "Please enter some text in the textfield", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+                    Snackbar.make(view, R.string.enter_text, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     private void updateUI() {
         if (mAdapter == null) {
@@ -172,14 +144,14 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
     }
 
-    private void AddDialogue(String text)
-    {
+    private void AddDialogue(String text) {
         Dialogue newDialogue = new Dialogue(text, mName.getName());
         mMainViewModel.insert(newDialogue);
 
         //Initialize the EditText for the next item
         mNewDialogueText.setText("");
 
+        //Asks for a new name in advance, so the user doesn't have to wait for the next dialogue
         requestData();
     }
 
@@ -200,13 +172,15 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
         if (mDialogues.size() > 0) {
 
+            //Cycles trough all names and dialogues and puts them in the intent.
             for (Dialogue r : mDialogues) {
                 textList.add(r.getDialogueText());
                 nameList.add(r.getDialogueName());
             }
+
             Intent intent = new Intent(MainActivity.this, PlaytestActivity.class);
             intent.putStringArrayListExtra("stringList", (ArrayList<String>) textList);
-            intent.putStringArrayListExtra("nameList" , (ArrayList<String>) nameList);
+            intent.putStringArrayListExtra("nameList", (ArrayList<String>) nameList);
             startActivity(intent);
         }
 
@@ -223,12 +197,13 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     }
 
 
-    private void requestData()
-    {
+    private void requestData() {
         Log.d("Debug", "API CALLED");
         NamesApiService service = NamesApiService.retrofit.create(NamesApiService.class);
         Call<NameItem> call = service.getNames();
-        call.enqueue(new Callback<NameItem>() {
+
+        call.enqueue(new Callback<NameItem>()
+        {
             @Override
             public void onResponse(Call<NameItem> call, Response<NameItem> response) {
 
@@ -237,12 +212,9 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
             @Override
             public void onFailure(Call<NameItem> call, Throwable t) {
-                Log.d("error",t.toString());
+                Log.d("error", t.toString());
             }
-
         });
-
     }
-
 
 }
