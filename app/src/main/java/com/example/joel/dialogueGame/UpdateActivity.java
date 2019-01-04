@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class UpdateActivity extends AppCompatActivity {
 
         mDialogueView.setText(dialogueUpdate.getDialogueText());
         mNameView.setText(dialogueUpdate.getDialogueName());
+
+        Log.d("Debug", "Text =" + dialogueUpdate.getDialogueText());
+        Log.d("Debug", "Name =" + dialogueUpdate.getDialogueName());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

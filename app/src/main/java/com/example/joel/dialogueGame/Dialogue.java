@@ -46,9 +46,7 @@ public class Dialogue implements Parcelable {
     }
 
 
-    public String getDialogueName() {
-        return mDialogueName;
-    }
+    public String getDialogueName() { return mDialogueName;}
     public void setDialogueName(String mDialogueName) {
         this.mDialogueName = mDialogueName;
     }
@@ -60,11 +58,13 @@ public class Dialogue implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mDialogueName);
         dest.writeString(this.mDialogueText);
         dest.writeValue(this.id);
     }
 
     protected Dialogue(Parcel in) {
+        this.mDialogueName = in.readString();
         this.mDialogueText = in.readString();
         this.id = (Long) in.readValue(Long.class.getClassLoader());
     }

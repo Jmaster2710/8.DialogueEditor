@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
 
                     //Called when a user swipes left or right on a ViewHolder
-
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
@@ -183,6 +182,10 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     public void reminderOnClick(int i) {
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
+
+
+        Log.d("Debug", "Given text" + mDialogues.get(i).getDialogueText());
+        Log.d("Debug", "Given name" + mDialogues.get(i).getDialogueName());
         intent.putExtra(EXTRA_REMINDER, mDialogues.get(i));
         startActivityForResult(intent, REQUESTCODE);
     }
@@ -228,9 +231,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
 
     {
         NamesApiService service = NamesApiService.retrofit.create(NamesApiService.class);
-
         Call<NameItem> call = service.getRandomName();
-
         call.enqueue(new Callback<NameItem>() {
             @Override
             public void onResponse(Call<NameItem> call, Response<NameItem> response) {
