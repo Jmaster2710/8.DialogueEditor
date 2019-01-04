@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.marmm.reminderdemo">
+    package="com.example.joel.dialogueGame">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

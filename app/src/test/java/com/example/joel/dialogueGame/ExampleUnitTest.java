@@ -1,4 +1,4 @@
-package com.example.marmm.reminderdemo;
+package com.example.joel.dialogueGame;
 
 import org.junit.Test;
 

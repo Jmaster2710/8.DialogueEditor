@@ -1,4 +1,4 @@
-package com.example.marmm.reminderdemo;
+package com.example.joel.dialogueGame;
 
 import android.content.Intent;
 import android.os.Handler;

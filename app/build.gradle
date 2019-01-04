@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.marmm.reminderdemo"
+        applicationId "com.example.joel.dialogueGame"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
