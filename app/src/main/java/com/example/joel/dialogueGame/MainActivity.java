@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements DialogueAdapter.D
     }
 
     @Override
-    public void reminderOnClick(int i) {
+    public void dialogueOnClick(int i) {
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
 

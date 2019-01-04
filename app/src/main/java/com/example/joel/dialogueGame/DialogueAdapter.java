@@ -14,17 +14,15 @@ public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHo
 
 
     private List<Dialogue> mDialogues;
-
-
     final private DialogueClickListener mDialogueClickListener;
 
-    public interface DialogueClickListener {
-
-        void reminderOnClick (int i);
-
+    public interface DialogueClickListener
+    {
+        void dialogueOnClick(int i);
     }
 
-    public DialogueAdapter(List<Dialogue> mDialogue, DialogueClickListener mDialogueClickListener) {
+    public DialogueAdapter(List<Dialogue> mDialogue, DialogueClickListener mDialogueClickListener)
+    {
         this.mDialogues = mDialogue;
         this.mDialogueClickListener = mDialogueClickListener;
     }
@@ -73,7 +71,7 @@ public class DialogueAdapter extends RecyclerView.Adapter<DialogueAdapter.ViewHo
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            mDialogueClickListener.reminderOnClick(clickedPosition);
+            mDialogueClickListener.dialogueOnClick(clickedPosition);
         }
     }
 

@@ -17,14 +17,14 @@ public interface DialogueDao {
 
 
     @Insert
-    public void insertDialogues(Dialogue reminders);
+    public void insertDialogues(Dialogue dialogues);
 
 
     @Delete
-    public void deleteDialogues(Dialogue reminders);
+    public void deleteDialogues(Dialogue dialogues);
 
 
     @Update
-    public void updateDialogues(Dialogue reminders);
+    public void updateDialogues(Dialogue dialogues);
 
 }

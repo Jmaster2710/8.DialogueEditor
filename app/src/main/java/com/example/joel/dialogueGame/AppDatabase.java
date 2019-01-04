@@ -6,15 +6,14 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {Dialogue.class}, version = 3)
+@Database(entities = {Dialogue.class}, version = 4)
 
 public abstract  class AppDatabase extends RoomDatabase {
 
 
     public abstract DialogueDao dialogueDao();
 
-
-    private final static String NAME_DATABASE = "reminder_db";
+    private final static String NAME_DATABASE = "dialogue_db";
 
 
     //Static instance

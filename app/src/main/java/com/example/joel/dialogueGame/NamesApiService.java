@@ -9,7 +9,7 @@ import retrofit2.http.Path;
 public interface NamesApiService {
 
     String BASE_URL = "https://uinames.com/";
-    String REGION = "netherlands";
+    String REGION = "United States";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
